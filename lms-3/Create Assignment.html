@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="create Assessment.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Create New Assessment</h1>
+
+        <!-- Assessment Title -->
+        <div class="form-group">
+            <label for="assessment-title" class="form-label">Assessment Title</label>
+            <input type="text" id="assessment-title" class="form-input" placeholder="Enter assessment title">
+        </div>
+
+        <!-- Assessment Type Selection -->
+        <div class="form-group">
+            <label for="assessment-type" class="form-label">Assessment Type</label>
+            <select id="assessment-type" class="form-select">
+                <option value="quiz">Quiz</option>
+                <option value="assignment">Assignment</option>
+                <option value="survey">Survey</option>
+            </select>
+        </div>
+
+        <!-- Question Bank Access -->
+        <div class="form-group">
+            <label for="question-bank" class="form-label">Question Bank Access</label>
+            <select id="question-bank" class="form-select">
+                <option value="select-existing">Select from existing question bank</option>
+                <option value="create-new">Create new questions</option>
+            </select>
+        </div>
+
+        <!-- Question Creation Tool -->
+        <div class="form-group">
+            <label class="form-label">Question Creation Tool</label>
+            <select class="form-select">
+                <option value="multiple-choice">Multiple Choice</option>
+                <option value="short-answer">Short Answer</option>
+                <option value="essay">Essay</option>
+                <option value="true-false">True/False</option>
+            </select>
+        </div>
+
+        <!-- Grading Options -->
+        <div class="form-group">
+            <label class="form-label">Grading Options</label>
+            <select class="form-select">
+                <option value="automated-grading">Automated Grading (Objective Questions)</option>
+                <option value="manual-grading">Manual Grading (Essays/Short Answers)</option>
+            </select>
+        </div>
+
+        <!-- Assessment Instructions -->
+        <div class="form-group">
+            <label for="assessment-instructions" class="form-label">Assessment Instructions</label>
+            <textarea id="assessment-instructions" class="form-textarea" placeholder="Enter instructions or guidelines for students"></textarea>
+        </div>
+
+        <!-- Time Limit and Attempts -->
+        <div class="form-group-inline">
+            <div class="form-group">
+                <label for="time-limit" class="form-label">Time Limit (minutes)</label>
+                <input type="number" id="time-limit" class="form-input" placeholder="e.g., 60">
+            </div>
+            <div class="form-group">
+                <label for="attempts" class="form-label">Number of Attempts</label>
+                <input type="number" id="attempts" class="form-input" placeholder="e.g., 1">
+            </div>
+        </div>
+
+        <!-- Feedback Options -->
+        <div class="form-group">
+            <label for="feedback-options" class="form-label">Feedback Options</label>
+            <select id="feedback-options" class="form-select">
+                <option value="immediate">Immediate Feedback</option>
+                <option value="delayed">Delayed Feedback</option>
+            </select>
+        </div>
+
+        <!-- Link to Course Content -->
+        <div class="form-group">
+            <label for="course-content-link" class="form-label">Link to Course Content</label>
+            <input type="text" id="course-content-link" class="form-input" placeholder="Enter related course module or topic">
+        </div>
+
+        <!-- Preview Button -->
+        <div class="form-buttons">
+            <button type="button" class="form-button preview">Preview</button>
+        </div>
+
+        <!-- Save as Draft / Publish Buttons -->
+        <div class="form-buttons">
+            <button type="button" class="form-button save-draft">Save as Draft</button>
+            <button type="button" class="form-button publish">Publish</button>
+        </div>
+    </div>
+</body>
+</html>

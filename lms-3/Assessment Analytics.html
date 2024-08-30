@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            font-size: 22px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .section .summary,
+        .section .chart-container,
+        .section .feedback-container {
+            margin-bottom: 20px;
+        }
+
+        .section .chart-container {
+            height: 300px;
+        }
+
+        .section .feedback-container {
+            background-color: #fff3f3;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .section .buttons {
+            text-align: center;
+        }
+
+        .section .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .export-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .export-btn:hover {
+            background-color: #218838;
+        }
+
+        .compare-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .compare-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Assessment Analytics</h1>
+        </div>
+
+        <!-- Overall Assessment Performance -->
+        <div class="section">
+            <h2>Overall Assessment Performance</h2>
+            <div class="summary">
+                <p>Average Score: <span id="average-score">85%</span></p>
+                <p>Score Distribution:</p>
+                <div id="score-distribution" class="chart-container"></div>
+            </div>
+        </div>
+
+        <!-- Question-Level Analysis -->
+        <div class="section">
+            <h2>Question-Level Analysis</h2>
+            <div class="feedback-container">
+                <p><strong>Question 1:</strong> Average Time Spent: 2 minutes, Correct Responses: 80%, Common Mistakes: Misinterpreting the question.</p>
+                <p><strong>Question 2:</strong> Average Time Spent: 1.5 minutes, Correct Responses: 75%, Common Mistakes: Calculation errors.</p>
+            </div>
+        </div>
+
+        <!-- Student Performance Trends -->
+        <div class="section">
+            <h2>Student Performance Trends</h2>
+            <div id="student-performance" class="chart-container"></div>
+        </div>
+
+        <!-- Feedback and Improvement Areas -->
+        <div class="section">
+            <h2>Feedback and Improvement Areas</h2>
+            <div class="feedback-container">
+                <p>Common areas where students struggled include algebraic concepts and problem-solving techniques. Consider reviewing these topics in upcoming lessons.</p>
+            </div>
+        </div>
+
+        <!-- Export Reports and Comparison Tools -->
+        <div class="section">
+            <div class="buttons">
+                <button class="export-btn" id="export-report">Export Report</button>
+                <button class="compare-btn" id="compare-performance">Compare Assessments</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Sample data for charts
+        const scoreDistributionData = [10, 20, 30, 40]; // Example data
+        const studentPerformanceData = [70, 75, 80, 85, 90]; // Example data
+
+        // Overall Assessment Performance Chart
+        const scoreDistributionCtx = document.getElementById('score-distribution').getContext('2d');
+        new Chart(scoreDistributionCtx, {
+            type: 'bar',
+            data: {
+                labels: ['0-50%', '51-60%', '61-70%', '71-100%'],
+                datasets: [{
+                    label: 'Score Distribution',
+                    data: scoreDistributionData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Student Performance Trends Chart
+        const studentPerformanceCtx = document.getElementById('student-performance').getContext('2d');
+        new Chart(studentPerformanceCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                datasets: [{
+                    label: 'Student Performance Over Time',
+                    data: studentPerformanceData,
+                    fill: false,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Export Report Button Logic
+        document.getElementById('export-report').addEventListener('click', function() {
+            const fileContent = `
+Assessment Analytics Report
+
+Overall Assessment Performance:
+- Average Score: 85%
+- Score Distribution: [10, 20, 30, 40]
+
+Question-Level Analysis:
+- Question 1: Average Time Spent: 2 minutes, Correct Responses: 80%, Common Mistakes: Misinterpreting the question.
+- Question 2: Average Time Spent: 1.5 minutes, Correct Responses: 75%, Common Mistakes: Calculation errors.
+
+Student Performance Trends:
+- Performance Over Time: [70, 75, 80, 85, 90]
+
+Feedback and Improvement Areas:
+- Common areas where students struggled include algebraic concepts and problem-solving techniques. Consider reviewing these topics in upcoming lessons.
+            `;
+            const fileName = 'assessment_analytics_report.txt';
+
+            // Create a Blob from the file content
+            const blob = new Blob([fileContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+
+            // Create a link element to download the file
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = fileName;
+
+            // Append the link to the body, click it, and remove it
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        });
+
+        // Compare Performance Button Logic
+        document.getElementById('compare-performance').addEventListener('click', function() {
+            alert('Comparison tool is under development.');
+        });
+    </script>
+</body>
+</html>

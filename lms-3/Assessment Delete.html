@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Archive and Deletion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .archive-options,
+        .deletion-warning,
+        .restore-options,
+        .export-options {
+            margin-bottom: 20px;
+        }
+
+        .archive-options h2,
+        .deletion-warning h2,
+        .restore-options h2,
+        .export-options h2 {
+            font-size: 22px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .archive-options button,
+        .restore-options button,
+        .export-options button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .archive-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .archive-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .restore-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .restore-btn:hover {
+            background-color: #218838;
+        }
+
+        .export-btn {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        .export-btn:hover {
+            background-color: #e0a800;
+        }
+
+        .deletion-warning {
+            background-color: #fff3f3;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .deletion-warning p {
+            margin: 0;
+        }
+
+        .confirm-deletion {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .confirm-deletion input {
+            margin-right: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .confirm-deletion button {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .confirm-deletion button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Assessment Archive and Deletion</h1>
+        </div>
+
+        <!-- Archive Assessment Option -->
+        <div class="archive-options">
+            <h2>Archive Assessment</h2>
+            <button class="archive-btn" id="archive-assessment">Archive Assessment</button>
+        </div>
+
+        <!-- Deletion Warning -->
+        <div class="deletion-warning">
+            <h2>Deletion Warning</h2>
+            <p>Deleting an assessment will permanently remove it and all associated data, including student responses and grades. This action cannot be undone. Proceed with caution.</p>
+        </div>
+
+        <!-- Confirm Deletion -->
+        <div class="confirm-deletion">
+            <input type="text" id="assessment-title" placeholder="Enter assessment title to confirm deletion">
+            <button id="confirm-deletion">Confirm Deletion</button>
+        </div>
+
+        <!-- Restore Archived Assessment -->
+        <div class="restore-options">
+            <h2>Restore Archived Assessment</h2>
+            <button class="restore-btn" id="restore-assessment">Restore Assessment</button>
+        </div>
+
+        <!-- Export Assessment Data -->
+        <div class="export-options">
+            <h2>Export Assessment Data</h2>
+            <button class="export-btn" id="export-data">Export Data</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('archive-assessment').addEventListener('click', function() {
+            // Logic to archive the assessment
+            alert('Assessment has been archived.');
+        });
+
+        document.getElementById('confirm-deletion').addEventListener('click', function() {
+            const title = document.getElementById('assessment-title').value;
+            if (title === 'Assessment Title') { // Replace with actual assessment title validation
+                alert('Assessment has been deleted.');
+                // Logic to delete the assessment
+            } else {
+                alert('Please enter the correct assessment title to confirm deletion.');
+            }
+        });
+
+        document.getElementById('restore-assessment').addEventListener('click', function() {
+            // Logic to restore the archived assessment
+            alert('Archived assessment has been restored.');
+        });
+
+        document.getElementById('export-data').addEventListener('click', function() {
+            const fileContent = `
+Assessment Data Export
+
+This file contains the exported data for the assessments. 
+
+Details:
+- Assessment Title: Sample Assessment
+- Student Responses: [Sample Data]
+- Grades: [Sample Data]
+            `;
+            const fileName = 'assessment_data_export.txt';
+
+            // Create a Blob from the file content
+            const blob = new Blob([fileContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+
+            // Create a link element to download the file
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = fileName;
+
+            // Append the link to the body, click it, and remove it
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Review and Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header .overall-score {
+            font-size: 24px;
+            color: #007bff;
+            margin: 10px 0;
+        }
+
+        .feedback-section,
+        .submission-history,
+        .teacher-comments {
+            margin-bottom: 20px;
+        }
+
+        .feedback-section h2,
+        .submission-history h2,
+        .teacher-comments h2 {
+            font-size: 22px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .feedback-item,
+        .submission-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .feedback-item .question {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .feedback-item .answer,
+        .feedback-item .explanation {
+            margin-bottom: 10px;
+        }
+
+        .submission-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .submission-item .date {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .retake-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .retake-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .download-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Assessment Review</h1>
+            <div class="overall-score">Your Score: 85%</div>
+        </div>
+
+        <!-- Detailed Feedback Section -->
+        <div class="feedback-section">
+            <h2>Detailed Feedback</h2>
+            <div class="feedback-item">
+                <div class="question">Question 1: What is the capital of France?</div>
+                <div class="answer">Your Answer: Paris</div>
+                <div class="correct-answer">Correct Answer: Paris</div>
+                <div class="explanation">Explanation: Paris is the capital city of France.</div>
+            </div>
+            <div class="feedback-item">
+                <div class="question">Question 2: What is 2 + 2?</div>
+                <div class="answer">Your Answer: 5</div>
+                <div class="correct-answer">Correct Answer: 4</div>
+                <div class="explanation">Explanation: 2 + 2 equals 4.</div>
+            </div>
+        </div>
+
+        <!-- Submission History Section -->
+        <div class="submission-history">
+            <h2>Submission History</h2>
+            <div class="submission-item">
+                <div class="date">August 30, 2024</div>
+                <div class="score">Score: 85%</div>
+                <div class="feedback">Feedback: Good job! Review the explanations for the missed questions.</div>
+            </div>
+            <div class="submission-item">
+                <div class="date">August 29, 2024</div>
+                <div class="score">Score: 78%</div>
+                <div class="feedback">Feedback: Try to review the concepts on basic arithmetic.</div>
+            </div>
+        </div>
+
+        <!-- Teacher Comments Section -->
+        <div class="teacher-comments">
+            <h2>Teacher Comments</h2>
+            <div>Well done overall! Make sure to review the explanations for better understanding.</div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button class="retake-btn">Retake Assessment</button>
+            <button class="download-btn">Download Feedback</button>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.retake-btn').addEventListener('click', function() {
+            // Add logic to retake the assessment
+            alert('Retake the assessment functionality not implemented.');
+        });
+
+        document.querySelector('.download-btn').addEventListener('click', function() {
+            // Add logic to download feedback
+            alert('Download feedback functionality not implemented.');
+        });
+    </script>
+</body>
+</html>

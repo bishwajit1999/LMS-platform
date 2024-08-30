@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grading and Review Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            font-size: 22px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .student-list,
+        .grading-container,
+        .feedback-container {
+            margin-bottom: 20px;
+        }
+
+        .student-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .student-list th,
+        .student-list td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .student-list th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .grading-container,
+        .feedback-container {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .grading-container textarea,
+        .feedback-container textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .grading-container button,
+        .feedback-container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .grade-submit-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .grade-submit-btn:hover {
+            background-color: #218838;
+        }
+
+        .bulk-grade-btn,
+        .regrade-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .bulk-grade-btn:hover,
+        .regrade-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .return-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .return-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Grading and Review Page</h1>
+        </div>
+
+        <!-- Student Submissions List -->
+        <div class="section student-list">
+            <h2>Student Submissions List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Submission Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="student-submissions">
+                    <!-- Student entries will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Question-by-Question Grading -->
+        <div class="section grading-container">
+            <h2>Question-by-Question Grading</h2>
+            <div id="grading">
+                <!-- Question grading details will be populated here -->
+            </div>
+            <button class="bulk-grade-btn" id="bulk-grade">Bulk Grade</button>
+        </div>
+
+        <!-- Feedback Input Fields -->
+        <div class="section feedback-container">
+            <h2>Feedback</h2>
+            <textarea id="overall-feedback" placeholder="Provide overall feedback for the assessment"></textarea>
+            <button class="grade-submit-btn" id="submit-feedback">Submit Feedback</button>
+        </div>
+
+        <!-- Regrade Option -->
+        <div class="section">
+            <h2>Regrade Submissions</h2>
+            <button class="regrade-btn" id="regrade-submission">Regrade Submission</button>
+        </div>
+
+        <!-- Return to Student -->
+        <div class="section">
+            <button class="return-btn" id="return-to-student">Return to Student</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for student submissions and questions
+        const studentSubmissions = [
+            { name: 'Alice Johnson', status: 'Ungraded' },
+            { name: 'Bob Smith', status: 'Graded' },
+            { name: 'Charlie Brown', status: 'Ungraded' }
+        ];
+
+        const questions = [
+            { id: 1, text: 'Describe the process of photosynthesis.' },
+            { id: 2, text: 'Explain the theory of relativity.' }
+        ];
+
+        // Populate student submissions list
+        function populateStudentList() {
+            const tbody = document.getElementById('student-submissions');
+            studentSubmissions.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${student.status}</td>
+                    <td><button onclick="gradeSubmission('${student.name}')">Grade</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Populate question-by-question grading section
+        function populateGrading() {
+            const gradingDiv = document.getElementById('grading');
+            questions.forEach(question => {
+                const questionDiv = document.createElement('div');
+                questionDiv.innerHTML = `
+                    <h3>Question ${question.id}: ${question.text}</h3>
+                    <textarea id="feedback-${question.id}" placeholder="Provide feedback for this question"></textarea>
+                `;
+                gradingDiv.appendChild(questionDiv);
+            });
+        }
+
+        // Grade submission function
+        function gradeSubmission(studentName) {
+            alert(`Grading submission for ${studentName}`);
+            // Implement grading logic here
+        }
+
+        // Bulk grade function
+        document.getElementById('bulk-grade').addEventListener('click', function() {
+            alert('Bulk grading is under development.');
+            // Implement bulk grading logic here
+        });
+
+        // Submit feedback function
+        document.getElementById('submit-feedback').addEventListener('click', function() {
+            const feedback = document.getElementById('overall-feedback').value;
+            alert(`Overall Feedback Submitted: ${feedback}`);
+            // Implement feedback submission logic here
+        });
+
+        // Regrade submission function
+        document.getElementById('regrade-submission').addEventListener('click', function() {
+            alert('Regrading submission is under development.');
+            // Implement regrading logic here
+        });
+
+        // Return to student function
+        document.getElementById('return-to-student').addEventListener('click', function() {
+            alert('Assessment returned to student.');
+            // Implement return logic here
+        });
+
+        // Initialize page content
+        populateStudentList();
+        populateGrading();
+    </script>
+</body>
+</html>

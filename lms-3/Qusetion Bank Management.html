@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Bank Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-bar input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+
+        .question-list {
+            margin-bottom: 20px;
+        }
+
+        .question-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .question-list th,
+        .question-list td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .question-list th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .question-actions button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-btn {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        .edit-btn:hover {
+            background-color: #e0a800;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        .add-question-btn {
+            display: block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-question-btn:hover {
+            background-color: #218838;
+        }
+
+        .import-export {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .import-export button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .import-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .import-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .export-btn {
+            background-color: #17a2b8;
+            color: #fff;
+        }
+
+        .export-btn:hover {
+            background-color: #117a8b;
+        }
+
+        .category-tags {
+            margin-bottom: 20px;
+        }
+
+        .category-tags select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .category-tags input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Question Bank Management</h1>
+        </div>
+
+        <!-- Search and Add New Question -->
+        <div class="search-bar">
+            <input type="text" id="search-bar" placeholder="Search by keyword, category, or tag">
+            <button id="search-btn">Search</button>
+        </div>
+
+        <button class="add-question-btn" id="add-question-btn">Add New Question</button>
+
+        <!-- Category and Tags -->
+        <div class="category-tags">
+            <select id="category-select">
+                <option value="">Select Category</option>
+                <!-- Categories will be populated here -->
+            </select>
+            <input type="text" id="tag-input" placeholder="Add tags">
+        </div>
+
+        <!-- Import and Export -->
+        <div class="import-export">
+            <button class="import-btn" id="import-questions">Import Questions</button>
+            <button class="export-btn" id="export-questions">Export Questions</button>
+        </div>
+
+        <!-- Question List -->
+        <div class="question-list">
+            <h2>Questions List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Question</th>
+                        <th>Category</th>
+                        <th>Tags</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="question-list">
+                    <!-- Questions will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for questions and categories
+        const questions = [
+            { id: 1, text: 'What is the capital of France?', category: 'Geography', tags: 'Europe,Capital' },
+            { id: 2, text: 'Explain Newton\'s laws of motion.', category: 'Physics', tags: 'Science,Mechanics' }
+        ];
+
+        const categories = ['Geography', 'Physics', 'Mathematics', 'History'];
+
+        // Populate the question list
+        function populateQuestionList() {
+            const tbody = document.getElementById('question-list');
+            tbody.innerHTML = ''; // Clear existing content
+
+            questions.forEach(question => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${question.text}</td>
+                    <td>${question.category}</td>
+                    <td>${question.tags}</td>
+                    <td class="question-actions">
+                        <button class="edit-btn" onclick="editQuestion(${question.id})">Edit</button>
+                        <button class="delete-btn" onclick="deleteQuestion(${question.id})">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Populate the category dropdown
+        function populateCategorySelect() {
+            const select = document.getElementById('category-select');
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                select.appendChild(option);
+            });
+        }
+
+        // Add new question
+        document.getElementById('add-question-btn').addEventListener('click', function() {
+            alert('Open Question Creation Tool');
+            // Implement opening the question creation tool logic here
+        });
+
+        // Search functionality
+        document.getElementById('search-btn').addEventListener('click', function() {
+            const searchQuery = document.getElementById('search-bar').value.toLowerCase();
+            const filteredQuestions = questions.filter(question =>
+                question.text.toLowerCase().includes(searchQuery) ||
+                question.category.toLowerCase().includes(searchQuery) ||
+                question.tags.toLowerCase().includes(searchQuery)
+            );
+            // Update the question list with filtered questions
+            populateQuestionList(filteredQuestions);
+        });
+
+        // Edit question functionality
+        function editQuestion(questionId) {
+            alert(`Edit question ${questionId}`);
+            // Implement edit logic here
+        }
+
+        // Delete question functionality
+        function deleteQuestion(questionId) {
+            if (confirm('Are you sure you want to delete this question?')) {
+                // Remove the question from the list
+                const index = questions.findIndex(q => q.id === questionId);
+                if (index !== -1) {
+                    questions.splice(index, 1);
+                    populateQuestionList();
+                }
+            }
+        }
+
+        // Import questions functionality
+        document.getElementById('import-questions').addEventListener('click', function() {
+            alert('Import questions functionality is under development.');
+            // Implement import logic here
+        });
+
+        // Export questions functionality
+        document.getElementById('export-questions').addEventListener('click', function() {
+            alert('Export questions functionality is under development.');
+            // Implement export logic here
+        });
+
+        // Initialize page content
+        populateQuestionList();
+        populateCategorySelect();
+    </script>
